@@ -65,5 +65,22 @@ A folyamatok életciklusuk során különböző állapotokon mennek keresztül:
 * **Spinlock**: Aktív várakozást használ. Csak nagyon rövid kritikus szakaszoknál javasolt, ahol a kontextusváltás lassabb lenne, mint maga a várakozás.
 * **Rwlock (Read-Write Lock)**: Megkülönbözteti az olvasást és az írást. Több olvasó egyszerre bent lehet a kritikus szakaszban, de az író kizárólagos jogot kap.
 
+### **Szoftverarchitektúrák és Többszálúság (Kiegészítés az s1e6-ból)**
+
+**5. oldal**
+* **FreeRTOS alapvető tulajdonságai**: Ez a dia tárgyalja a FreeRTOS-t, mint tipikus beágyazott OS-t, amely támogatja a prioritás alapú ütemezést.
+* **SMP MCU OS-ek esetén**: Megemlíti a többmagos (Symmetric Multi-Processing) rendszerek előnyeit és hátrányait (racionalitás: mikor éri meg a komplexitást a párhuzamosítás).
+
+**8-10. oldal**
+* **Linux alapvető tulajdonságai**: A Linux mint "Rich OS" (beágyazott környezetben is) támogatja a komplex többszálúságot és a folyamatok közötti védelmet az MMU segítségével.
+* **Választási szempontok (FreeRTOS/Zephyr vs. Linux)**:
+    * **RTOS (FreeRTOS/Zephyr)**: Ha szigorú valós-idejűség (Hard Real-Time) és kis memóriaigény a cél.
+    * **Linux**: Ha komplex hálózati stack, fájlrendszer vagy grafikus felület kell, és a valós-idejűség másodlagos ("Soft RT" vagy "Best effort").
+
+**13. oldal**
+* **Többszálú architektúra szerepe**: Itt részletezi, hogy a többszálúság segít a komplex feladatok szétválasztásában, de növeli a szinkronizációs igényt (ez az átkötés a `poll()` és a `mutex` témakörök felé).
+
+**Összegezve**: A `VIMIAD04_s1e6_emswarch_2026.pdf` elsősorban a **tervezési döntésekről** szól (milyen OS-t válasszunk, hogyan építsük fel a szoftvert), míg az `s1e7` a **technikai megvalósításról** (hogyan ütemezzük és zárjuk le az erőforrásokat). A ZH-hoz mindkettő logikai egységet alkot a "6. prezentáció" alatt.
+
 ---
 Ezzel a ZH-ra kijelölt összes elméleti és laboratóriumi témakört feldolgoztuk a megadott források alapján. Sok sikert a felkészüléshez! Van még valami, amiben segíthetek?
