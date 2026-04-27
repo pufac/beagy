@@ -9,8 +9,8 @@ Ez a harmadik prezentáció (4. előadás) az egyik leggyakorlatiasabb rész, hi
 ## 1. A periféria szerkezete és a regiszterfájl (KULCSKONCEPCIÓ)
 A periféria nem csak egy passzív csatlakozó, hanem egy önálló digitális logika, amelynek saját "felülete" van a CPU felé.
 
-* [cite_start]**Szerkezet:** A periféria két fő részből áll: a funkcionális **digitális logikából** (ami pl. méri az időt vagy kezeli a soros vonalat) és egy **regiszterfájlból**[cite: 3].
-* **Regiszterfájl:** Ez a periféria "vezérlőpultja". Ezen keresztül látja a CPU a perifériát. [cite_start]A regiszterek típusai[cite: 5]:
+* **Szerkezet:** A periféria két fő részből áll: a funkcionális **digitális logikából** (ami pl. méri az időt vagy kezeli a soros vonalat) és egy **regiszterfájlból**.
+* **Regiszterfájl:** Ez a periféria "vezérlőpultja". Ezen keresztül látja a CPU a perifériát. A regiszterek típusai:
     * **Control (Vezérlő) regiszterek:** Írható regiszterek, itt állítjuk be a működési módot (pl. engedélyezés, sebesség).
     * **Status (Állapot) regiszterek:** Általában csak olvashatók, itt jelzi a periféria, ha végzett egy feladattal vagy hiba történt.
     * **Data (Adat) regiszterek:** Itt zajlik a tényleges adatcsere (be- és kimeneti adatok).
@@ -18,7 +18,7 @@ A periféria nem csak egy passzív csatlakozó, hanem egy önálló digitális l
 ---
 
 ## 2. Periféria címzése: Dedikált vs. Memóriára leképzett IO (KULCSKONCEPCIÓ)
-Hogyan éri el a processzor ezeket a regisztereket? [cite_start]Két fő iskola létezik[cite: 4]:
+Hogyan éri el a processzor ezeket a regisztereket? Két fő iskola létezik:
 
 1.  **Memóriára leképzett IO (Memory Mapped IO - MMIO):**
     * A periféria regiszterei úgy jelennek meg, mintha memóriacímek lennének.
@@ -34,15 +34,15 @@ Hogyan éri el a processzor ezeket a regisztereket? [cite_start]Két fő iskola 
 ## 3. PIN konfiguráció és Funkció (MUX) (KULCSKONCEPCIÓ)
 A modern mikrovezérlőknek sokkal több belső funkciója van, mint amennyi fizikai lába (PIN).
 
-* [cite_start]**Pin Multiplexing (MUX):** Egy fizikai lábhoz több belső periféria is hozzárendelhető[cite: 9]. Például ugyanaz a láb lehet egy egyszerű kapcsoló bemenete (GPIO), vagy egy soros port adó lába (UART TX), vagy egy PWM kimenet.
+* **Pin Multiplexing (MUX):** Egy fizikai lábhoz több belső periféria is hozzárendelhető. Például ugyanaz a láb lehet egy egyszerű kapcsoló bemenete (GPIO), vagy egy soros port adó lába (UART TX), vagy egy PWM kimenet.
 * **Funkciója:** A szoftvernek a regiszterekben (Pin Control Register) kell konfigurálnia, hogy az adott láb éppen melyik belső funkcióhoz kapcsolódjon.
 
 ---
 
 ## 4. GPIO: Általános célú I/O portok (KULCSKONCEPCIÓ)
-[cite_start]A GPIO a legegyszerűbb periféria: egy bitnyi információt (alacsony vagy magas szint) tud kiadni vagy fogadni[cite: 10].
+A GPIO a legegyszerűbb periféria: egy bitnyi információt (alacsony vagy magas szint) tud kiadni vagy fogadni.
 
-[cite_start]**Betartandó alapszabályok illesztésnél[cite: 11, 12]:**
+**Betartandó alapszabályok illesztésnél:**
 * **Feszültségszintek:** Figyelni kell a logikai szintekre ($V_{IL}, V_{IH}, V_{OL}, V_{OH}$). Ha 3.3V-os a kimenet, nem biztos, hogy meghajt egy 5V-os bemenetet.
 * **Áramkorlátok:** Egy láb csak véges áramot tud kiadni (Source) vagy elnyelni (Sink). Ha túlterheljük, a chip tönkremegy.
 * **Pull-up / Pull-down:** Bemenet esetén, ha nincs rákötve semmi (lebeg), a logikai szint bizonytalan lesz. Ezért belső ellenállásokkal fix szintre kell húzni a lábat.
@@ -50,11 +50,11 @@ A modern mikrovezérlőknek sokkal több belső funkciója van, mint amennyi fiz
 ---
 
 ## 5. A/D és D/A átalakítás (KULCSKONCEPCIÓ)
-A fizikai világ analóg, a számítógép digitális. [cite_start]Az átalakítás két fő lépése az időbeli és az amplitúdóbeli diszkretizáció[cite: 14].
+A fizikai világ analóg, a számítógép digitális. Az átalakítás két fő lépése az időbeli és az amplitúdóbeli diszkretizáció.
 
-* **Mintavételezés ($f_s$):** Időbeli diszkretizáció. [cite_start]A Nyquist-Shannon elv szerint a mintavételi frekvenciának legalább a mérendő jel legnagyobb frekvenciájának kétszeresének kell lennie[cite: 16].
-* **Kvantálás:** Amplitúdóbeli diszkretizáció. [cite_start]A felbontást (Resolution) bitekben adjuk meg (pl. 12 bit = 4096 szint)[cite: 15].
-* [cite_start]**Mintavételezési módok[cite: 17]:**
+* **Mintavételezés ($f_s$):** Időbeli diszkretizáció. A Nyquist-Shannon elv szerint a mintavételi frekvenciának legalább a mérendő jel legnagyobb frekvenciájának kétszeresének kell lennie.
+* **Kvantálás:** Amplitúdóbeli diszkretizáció. A felbontást (Resolution) bitekben adjuk meg (pl. 12 bit = 4096 szint).
+* **Mintavételezési módok:**
     * **On-demand:** A szoftver kéri a mérést, megvárja, amíg kész. (Lassú, de egyszerű).
     * **Időzített:** Hardveres timer indítja a mérést pontos időközönként. (Valós-idejű feldolgozáshoz elengedhetetlen).
 
@@ -71,24 +71,24 @@ Az alábbi szimulátorral kipróbálhatod, hogyan befolyásolja a felbontás (kv
 ---
 
 ## 6. Digitális kommunikációs protokollok (UART, I2C, SPI)
-Ha két digitális alkatrész beszélget, protokollra van szükség. [cite_start]A ZH-ban ezek összehasonlítása kulcskérdés[cite: 21, 24].
+Ha két digitális alkatrész beszélget, protokollra van szükség. A ZH-ban ezek összehasonlítása kulcskérdés.
 
 | Tulajdonság | UART | I2C | SPI |
 | :--- | :--- | :--- | :--- |
-| **Szinkronitás** | [cite_start]Aszinkron (nincs órajel) [cite: 21] | [cite_start]Szinkron (SCL órajel) [cite: 22] | [cite_start]Szinkron (SCK órajel) [cite: 23] |
+| **Szinkronitás** | Aszinkron (nincs órajel)  | Szinkron (SCL órajel)  | Szinkron (SCK órajel)  |
 | **Vezetékek száma** | 2 (TX, RX) | 2 (SDA, SCL) | 4 (MOSI, MISO, SCK, CS) |
 | **Topológia** | Point-to-point (2 eszköz) | Multi-master / Multi-slave | Master-Slave |
 | **Címzés** | Nincs | Cím alapú (7/10 bit) | Chip Select (CS) lábbal |
 | **Sebesség** | Alacsony | Közepes (100k - 3.4M) | Magas (akár >50M) |
 
 ### Fontos eltérés adatelérés szempontjából (KULCSKONCEPCIÓ)
-* **I2C és SPI:** Ezek **regiszterfájl alapúak**. Egy periféria regisztereit érjük el rajtuk keresztül, mintha egy távoli memóriahelyre írnánk/olvasnánk. [cite_start]Az elérhető adatok szerkezete kötött[cite: 24].
-* **UART:** Ez egy **stream-alapú** kommunikációs megoldás. [cite_start]Nincs egységes regisztermodell; bármit és bárhogy küldhetünk rajta, a szoftver dolga értelmezni a beérkező bájtok folyamát[cite: 24].
+* **I2C és SPI:** Ezek **regiszterfájl alapúak**. Egy periféria regisztereit érjük el rajtuk keresztül, mintha egy távoli memóriahelyre írnánk/olvasnánk. Az elérhető adatok szerkezete kötött.
+* **UART:** Ez egy **stream-alapú** kommunikációs megoldás. Nincs egységes regisztermodell; bármit és bárhogy küldhetünk rajta, a szoftver dolga értelmezni a beérkező bájtok folyamát.
 
 ---
 
 ## 7. Megszakítás (Interrupt) (KULCSKONCEPCIÓ)
-[cite_start]A periféria jelezheti a CPU-nak, ha esemény történt, így a CPU-nak nem kell folyamatosan kérdezgetnie (polling)[cite: 7].
+A periféria jelezheti a CPU-nak, ha esemény történt, így a CPU-nak nem kell folyamatosan kérdezgetnie (polling).
 
 1.  **Esemény:** A periféria jelez.
 2.  **Megszakítás:** A CPU felfüggeszti az aktuális munkát.
